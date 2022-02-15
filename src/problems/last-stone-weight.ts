@@ -1,5 +1,3 @@
-// NOTE: splice operation is pretty heavy, we can use MaxHeap instead
-
 function findInsertIndex(sorted: number[], target: number): number {
   let low = 0;
   let high = sorted.length - 1;
@@ -16,7 +14,11 @@ function findInsertIndex(sorted: number[], target: number): number {
   return sorted[low] < target ? low + 1 : low;
 }
 
-function lastStoneWeight(stones: number[]): number {
+/**
+ * We're using sorted array and binary search to simulate the stones game.
+ * Splice operation is pretty heavy, we can use MaxHeap instead.
+ */
+export function lastStoneWeight(stones: number[]): number {
   stones.sort((a, b) => a - b);
   while (stones.length > 1) {
     const diff = stones.pop()! - stones.pop()!;
