@@ -1,4 +1,6 @@
-export class MaxHeap {
+import { Heap } from "./Heap";
+
+export class MaxHeap implements Heap {
   private array: number[];
 
   constructor(values: number[]) {
@@ -32,8 +34,8 @@ export class MaxHeap {
     if (leftIndex > lastIndex && rightIndex > lastIndex) {
       return -1;
     }
-    const leftChild = this.array[leftIndex] ?? Number.MIN_VALUE;
-    const rightChild = this.array[rightIndex] ?? Number.MIN_VALUE;
+    const leftChild = this.array[leftIndex] ?? Number.MIN_SAFE_INTEGER;
+    const rightChild = this.array[rightIndex] ?? Number.MIN_SAFE_INTEGER;
     return leftChild < rightChild ? rightIndex : leftIndex;
   }
 
@@ -88,7 +90,35 @@ export class MaxHeap {
     return this.array.length;
   }
 
-  public toString(): string {
+  public toArrayString(): string {
     return this.array.toString();
   }
+
+  public toTreeString(): string {
+    let result = "";
+    let itemsPerLevel = 1;
+    let index = 0;
+    const height = Math.ceil(Math.log2(this.array.length));
+    let space = new Array<string>(Math.pow(2, height)).fill(" ").join(" ");
+    while (index < this.array.length) {
+      for (let i = 0; i < itemsPerLevel; i++) {
+        result += (this.array[index++] ?? "_") + space;
+      }
+      result += "\n";
+      itemsPerLevel *= 2;
+      space = space.substring(0, space.length / 2);
+    }
+    return result;
+  }
 }
+
+const a = [
+  3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8,
+];
+const heap = new MaxHeap(a);
+console.log(heap.toTreeString());
+
+for (let i = 0; i < 4; i++) {
+  heap.pop();
+}
+console.log(heap.toTreeString());
