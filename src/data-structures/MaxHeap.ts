@@ -118,10 +118,14 @@ export class MaxHeap implements Heap<number> {
   }
 }
 
-const a = [
-  3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8,
-];
-const heap = new MaxHeap(a);
-while (heap.getSize() > 0) {
-  console.log(heap.pop());
+function test() {
+  const a = [
+    3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8,
+  ];
+  const heap = new MaxHeap(a);
+  while (heap.getSize() > 0) {
+    console.log(heap.pop());
+  }
 }
+
+test();
