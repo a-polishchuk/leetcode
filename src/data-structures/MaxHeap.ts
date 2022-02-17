@@ -1,6 +1,6 @@
 import { Heap } from "./Heap";
 
-export class MaxHeap implements Heap {
+export class MaxHeap implements Heap<number> {
   private array: number[];
 
   constructor(values: number[]) {
@@ -74,10 +74,16 @@ export class MaxHeap implements Heap {
   }
 
   public pop(): number | null {
-    if (this.getSize() === 0) {
+    const size = this.getSize();
+    if (size === 0) {
       return null;
     }
-    const max = this.array.shift()!;
+    const lastVal = this.array.pop()!;
+    if (size === 1) {
+      return lastVal;
+    }
+    const max = this.array[0];
+    this.array[0] = lastVal;
     this.heapify(0);
     return max;
   }
@@ -116,9 +122,6 @@ const a = [
   3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8,
 ];
 const heap = new MaxHeap(a);
-console.log(heap.toTreeString());
-
-for (let i = 0; i < 4; i++) {
-  heap.pop();
+while (heap.getSize() > 0) {
+  console.log(heap.pop());
 }
-console.log(heap.toTreeString());

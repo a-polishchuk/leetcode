@@ -1,6 +1,6 @@
 import { Heap } from "./Heap";
 
-export class MinHeap implements Heap {
+export class MinHeap implements Heap<number> {
   private array: number[];
 
   constructor(values: number[]) {
