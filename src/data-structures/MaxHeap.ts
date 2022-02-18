@@ -1,4 +1,4 @@
-import { Heap } from "./Heap";
+import { Heap } from './Heap';
 
 export class MaxHeap implements Heap<number> {
   private array: number[];
@@ -11,21 +11,10 @@ export class MaxHeap implements Heap<number> {
     }
   }
 
-  private getLeftIndex(index: number): number {
-    return 2 * index + 1;
-  }
-
-  private getRightIndex(index: number): number {
-    return 2 * index + 2;
-  }
-
-  private getParentIndex(index: number): number {
-    return Math.floor((index - 1) / 2);
-  }
-
-  private getLastIndex(): number {
-    return this.array.length - 1;
-  }
+  private getLeftIndex = (index: number): number => 2 * index + 1;
+  private getRightIndex = (index: number): number => 2 * index + 2;
+  private getParentIndex = (index: number): number => Math.floor((index - 1) / 2);
+  private getLastIndex = (): number => this.array.length - 1;
 
   private getLargestChildIndex(index: number): number {
     const lastIndex = this.getLastIndex();
@@ -51,10 +40,7 @@ export class MaxHeap implements Heap<number> {
   private heapify(index: number) {
     let currIndex = index;
     let largestChildIndex = this.getLargestChildIndex(currIndex);
-    while (
-      largestChildIndex !== -1 &&
-      this.array[currIndex] < this.array[largestChildIndex]
-    ) {
+    while (largestChildIndex !== -1 && this.array[currIndex] < this.array[largestChildIndex]) {
       this.swapNodes(currIndex, largestChildIndex);
       currIndex = largestChildIndex;
       largestChildIndex = this.getLargestChildIndex(currIndex);
@@ -101,16 +87,16 @@ export class MaxHeap implements Heap<number> {
   }
 
   public toTreeString(): string {
-    let result = "";
+    let result = '';
     let itemsPerLevel = 1;
     let index = 0;
     const height = Math.ceil(Math.log2(this.array.length));
-    let space = new Array<string>(Math.pow(2, height)).fill(" ").join(" ");
+    let space = new Array<string>(Math.pow(2, height)).fill(' ').join(' ');
     while (index < this.array.length) {
       for (let i = 0; i < itemsPerLevel; i++) {
-        result += (this.array[index++] ?? "_") + space;
+        result += (this.array[index++] ?? '_') + space;
       }
-      result += "\n";
+      result += '\n';
       itemsPerLevel *= 2;
       space = space.substring(0, space.length / 2);
     }
@@ -119,9 +105,7 @@ export class MaxHeap implements Heap<number> {
 }
 
 function test() {
-  const a = [
-    3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8,
-  ];
+  const a = [3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 8, 9, 5, 6, 2, 4, 7, 8];
   const heap = new MaxHeap(a);
   while (heap.getSize() > 0) {
     console.log(heap.pop());
