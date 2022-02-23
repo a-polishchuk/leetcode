@@ -1,3 +1,6 @@
+/**
+ * Typical "merge intervals" problem
+ */
 export function findPoisonedDuration(timeSeries: number[], duration: number): number {
   let totalDuration = 0;
 
