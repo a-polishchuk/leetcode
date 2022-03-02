@@ -9,7 +9,7 @@ export function rob(nums: number[]): number {
  * Our dp function will return max money robber can get for the i-th house.
  */
 function dp(nums: number[], cache: Map<number, number>, i: number): number {
-  // defining the base cases
+  // 1. defining the base cases
   if (i == 0) {
     return nums[0];
   }
@@ -17,13 +17,13 @@ function dp(nums: number[], cache: Map<number, number>, i: number): number {
     return Math.max(nums[0], nums[1]);
   }
 
-  // checking if we can get a memoized result to avoid duplicated computations
+  // 2. checking if we can get a memoized result to avoid duplicated computations
   // NOTE: memoization is a very important part of a top-down DP approach
   if (cache.has(i)) {
     return cache.get(i)!;
   }
 
-  // defining the reccurence relation between different states
+  // 3. defining the reccurence relation between different states
   const answer = Math.max(
     dp(nums, cache, i - 1), // means that we will not rob i-th house
     dp(nums, cache, i - 2) + nums[i], // we will rob i-th house (and will not do previous)
